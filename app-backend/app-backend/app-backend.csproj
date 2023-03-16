@@ -1,0 +1,65 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>app_backend</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<!-- Flo : Différentes conditions de Build pour différents packages-->  
+	<Configurations>Debug;Release;Dev</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1701;1702;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1701;1702;CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.JsonPatch" Version="6.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+    <!--<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />-->
+    <!--<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.3" /-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite" Version="6.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NetTopologySuite" Version="2.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <!--<PackageReference Include="SQLitePCLRaw.bundle_sqlite3" Version="2.0.7" />-->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.2" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.16.0" />
+  </ItemGroup>
+	
+	<Choose>
+		<When Condition=" '$(Configuration)'=='Release' ">
+			<ItemGroup>
+				<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.3" />
+				<PackageReference Include="SQLitePCLRaw.bundle_sqlite3" Version="2.0.7" />
+			</ItemGroup>
+		</When>
+		<When Condition=" '$(Configuration)'=='Dev' ">
+			<ItemGroup>
+				<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="6.0.3" />
+				<PackageReference Include="SQLitePCLRaw.bundle_sqlite3" Version="2.0.7" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.3" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+
+</Project>
